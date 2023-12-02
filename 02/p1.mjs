@@ -1,15 +1,12 @@
 import fs from 'fs'
-import readline from 'readline'
 
 const path = process.argv.slice(-1)[0]
-const filestream = fs.createReadStream(path)
-const rl = readline.createInterface({
-    input: filestream,
-    ctrlDelay: Infinity
-})
+const file = fs.readFileSync(path, 'utf-8')
+const lines = file.split('\n')
 
-rl.on('line', line => {
-})
+for (const line of lines) {
+    if (line.trim() === "") {
+        break
+    }
+}
 
-rl.on('close', () => {
-});

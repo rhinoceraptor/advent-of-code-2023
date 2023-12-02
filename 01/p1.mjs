@@ -1,16 +1,16 @@
 import fs from 'fs'
-import readline from 'readline'
 
 const path = process.argv.slice(-1)[0]
-const filestream = fs.createReadStream(path)
-const rl = readline.createInterface({
-    input: filestream,
-    ctrlDelay: Infinity
-})
+const file = fs.readFileSync(path, 'utf-8')
+const lines = file.split('\n')
 
 let sum = 0
 
-rl.on('line', line => {
+for (const line of lines) {
+    if (line.trim() === "") {
+        break
+    }
+
     console.log(line)
     const digits = line.match(/(\d)/g)
 
@@ -20,8 +20,6 @@ rl.on('line', line => {
     console.log(`first: ${firstNum}\t last: ${lastNum}\ttogether: ${lineSum}`)
 
     sum += lineSum
-})
+}
 
-rl.on('close', () => {
-    console.log(`sum: ${sum}`)
-});
+console.log(`sum: ${sum}`)
